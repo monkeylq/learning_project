@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.XwBindFlowMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.XwBindFlow">
+    <id column="bank_card_id" jdbcType="VARCHAR" property="bank_card_id" />
+    <result column="user_id" jdbcType="VARCHAR" property="user_id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="channel_code" jdbcType="VARCHAR" property="channel_code" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="local_url" jdbcType="VARCHAR" property="local_url" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.model.XwBindFlowWithBLOBs">
+    <result column="msg_send" jdbcType="LONGVARCHAR" property="msg_send" />
+    <result column="msg_back" jdbcType="LONGVARCHAR" property="msg_back" />
+    <result column="msg_back_sync" jdbcType="LONGVARCHAR" property="msg_back_sync" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    bank_card_id, user_id, type, channel_code, status, local_url, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    msg_send, msg_back, msg_back_sync
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.example.demo.model.XwBindFlowExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xw_bind_flow
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.example.demo.model.XwBindFlowExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xw_bind_flow
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from xw_bind_flow
+    where bank_card_id = #{bank_card_id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xw_bind_flow
+    where bank_card_id = #{bank_card_id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.demo.model.XwBindFlowExample">
+    delete from xw_bind_flow
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.XwBindFlowWithBLOBs">
+    insert into xw_bind_flow (bank_card_id, user_id, type, 
+      channel_code, status, local_url, 
+      create_time, update_time, msg_send, 
+      msg_back, msg_back_sync)
+    values (#{bank_card_id,jdbcType=VARCHAR}, #{user_id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{channel_code,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{local_url,jdbcType=VARCHAR}, 
+      #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, #{msg_send,jdbcType=LONGVARCHAR}, 
+      #{msg_back,jdbcType=LONGVARCHAR}, #{msg_back_sync,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.XwBindFlowWithBLOBs">
+    insert into xw_bind_flow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bank_card_id != null">
+        bank_card_id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="channel_code != null">
+        channel_code,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="local_url != null">
+        local_url,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="update_time != null">
+        update_time,
+      </if>
+      <if test="msg_send != null">
+        msg_send,
+      </if>
+      <if test="msg_back != null">
+        msg_back,
+      </if>
+      <if test="msg_back_sync != null">
+        msg_back_sync,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bank_card_id != null">
+        #{bank_card_id,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_code != null">
+        #{channel_code,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="local_url != null">
+        #{local_url,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msg_send != null">
+        #{msg_send,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="msg_back != null">
+        #{msg_back,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="msg_back_sync != null">
+        #{msg_back_sync,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.model.XwBindFlowExample" resultType="java.lang.Long">
+    select count(*) from xw_bind_flow
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update xw_bind_flow
+    <set>
+      <if test="record.bank_card_id != null">
+        bank_card_id = #{record.bank_card_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.user_id != null">
+        user_id = #{record.user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channel_code != null">
+        channel_code = #{record.channel_code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.local_url != null">
+        local_url = #{record.local_url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.create_time != null">
+        create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.update_time != null">
+        update_time = #{record.update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.msg_send != null">
+        msg_send = #{record.msg_send,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.msg_back != null">
+        msg_back = #{record.msg_back,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.msg_back_sync != null">
+        msg_back_sync = #{record.msg_back_sync,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update xw_bind_flow
+    set bank_card_id = #{record.bank_card_id,jdbcType=VARCHAR},
+      user_id = #{record.user_id,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      channel_code = #{record.channel_code,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      local_url = #{record.local_url,jdbcType=VARCHAR},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      update_time = #{record.update_time,jdbcType=TIMESTAMP},
+      msg_send = #{record.msg_send,jdbcType=LONGVARCHAR},
+      msg_back = #{record.msg_back,jdbcType=LONGVARCHAR},
+      msg_back_sync = #{record.msg_back_sync,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update xw_bind_flow
+    set bank_card_id = #{record.bank_card_id,jdbcType=VARCHAR},
+      user_id = #{record.user_id,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      channel_code = #{record.channel_code,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      local_url = #{record.local_url,jdbcType=VARCHAR},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      update_time = #{record.update_time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.XwBindFlowWithBLOBs">
+    update xw_bind_flow
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_code != null">
+        channel_code = #{channel_code,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="local_url != null">
+        local_url = #{local_url,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        update_time = #{update_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msg_send != null">
+        msg_send = #{msg_send,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="msg_back != null">
+        msg_back = #{msg_back,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="msg_back_sync != null">
+        msg_back_sync = #{msg_back_sync,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where bank_card_id = #{bank_card_id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.model.XwBindFlowWithBLOBs">
+    update xw_bind_flow
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      channel_code = #{channel_code,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      local_url = #{local_url,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP},
+      msg_send = #{msg_send,jdbcType=LONGVARCHAR},
+      msg_back = #{msg_back,jdbcType=LONGVARCHAR},
+      msg_back_sync = #{msg_back_sync,jdbcType=LONGVARCHAR}
+    where bank_card_id = #{bank_card_id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.XwBindFlow">
+    update xw_bind_flow
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      channel_code = #{channel_code,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      local_url = #{local_url,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP}
+    where bank_card_id = #{bank_card_id,jdbcType=VARCHAR}
+  </update>
+</mapper>

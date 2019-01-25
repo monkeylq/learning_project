@@ -20,8 +20,8 @@
                         password="Neafex20181127">
         </jdbcConnection>
 
-        <!--生成实体类的位置以及包的名字-->
-        <javaModelGenerator targetPackage="com.example.demo.model"
+        <!--生成model实体类的位置以及包的名字-->
+        <javaModelGenerator targetPackage="com.example.maven201901251606.model"
                             targetProject="src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="true"/>
@@ -30,17 +30,18 @@
         </javaModelGenerator>
 
         <!--生成映射文件存放位置-->
-        <sqlMapGenerator targetPackage="mapper"
+        <sqlMapGenerator targetPackage="mapping"
                          targetProject="src/main/resources">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
-            <property name="enableSubPackages" value="false"/>
+            <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
+        <!-- type="XMLMAPPER" type="ANnotatedmapper" type="MIXEDMAPPER" -->
         <!--生成Dao类存放位置,mapper接口生成的位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.demo.dao"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.maven201901251606.dao"
                              targetProject="src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
-            <property name="enableSubPackages" value="false"/>
+            <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!-- 配置表信息 -->
